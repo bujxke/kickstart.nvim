@@ -733,6 +733,7 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
+        'biome', -- Formatter for JS/TS/JSON
         'stylua', -- Used to format Lua code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -786,6 +787,12 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        javascript = { 'biome', 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'biome', 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'biome', 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'biome', 'prettierd', 'prettier', stop_after_first = true },
+        json = { 'biome' },
+        jsonc = { 'biome' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
