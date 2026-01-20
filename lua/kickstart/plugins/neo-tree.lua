@@ -15,6 +15,23 @@ return {
   },
   opts = {
     filesystem = {
+      filtered_items = {
+        hide_dotfiles = true,
+        hide_gitignored = true,
+        always_show = {
+          '.changeset',
+          '.github',
+          '.gitignore',
+          '.npmrc',
+          '.nvmrc',
+        },
+        always_show_by_pattern = {
+          '^%.env',
+        },
+        never_show = {
+          '.git',
+        },
+      },
       window = {
         mappings = {
           ['<leader>e'] = 'close_window',
