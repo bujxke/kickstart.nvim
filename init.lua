@@ -249,7 +249,7 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  { 'NMAC427/guess-indent.nvim', opts = {} }, -- Detect tabstop and shiftwidth automatically
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -860,7 +860,8 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'super-tab',
+        ['<CR>'] = { 'accept', 'fallback' },
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -922,6 +923,26 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+
+      -- Auto-pair only for specific filetypes.
+      require('mini.pairs').setup()
+      local autopairs_filetypes = {
+        javascript = true,
+        javascriptreact = true,
+        typescript = true,
+        typescriptreact = true,
+        json = true,
+        jsonc = true,
+        json5 = true,
+      }
+      local autopairs_group = vim.api.nvim_create_augroup('AutoPairsFiletypes', { clear = true })
+      vim.api.nvim_create_autocmd('FileType', {
+        group = autopairs_group,
+        callback = function(args)
+          local ft = vim.bo[args.buf].filetype
+          vim.b[args.buf].minipairs_disable = not autopairs_filetypes[ft]
+        end,
+      })
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
