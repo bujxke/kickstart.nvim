@@ -405,6 +405,8 @@ require('lazy').setup({
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+      local dotfile_ignore = vim.fn.stdpath 'config' .. '/telescope.ignore'
+
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
@@ -422,19 +424,9 @@ require('lazy').setup({
               '--files',
               '--hidden',
               '--glob',
-              '!**/.*',
-              '--glob',
-              '**/.changeset/**',
-              '--glob',
-              '**/.github/**',
-              '--glob',
-              '**/.env*',
-              '--glob',
-              '**/.nvmrc',
-              '--glob',
-              '**/.npmrc',
-              '--glob',
-              '**/.gitignore',
+              '!**/.git/**',
+              '--ignore-file',
+              dotfile_ignore,
             },
           },
         },
@@ -706,7 +698,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        ts_ls = {},
         --
 
         lua_ls = {
