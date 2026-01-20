@@ -34,6 +34,7 @@ return {
       },
       window = {
         mappings = {
+          ['<space>'] = 'none',
           ['<leader>e'] = 'close_window',
         },
       },
