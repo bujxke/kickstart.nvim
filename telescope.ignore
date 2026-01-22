@@ -12,3 +12,5 @@
 !.nvmrc
 !.npmrc
 !.gitignore
+!.claude/
+!.claude/**
