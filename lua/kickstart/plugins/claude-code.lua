@@ -15,25 +15,23 @@ return {
     { '<leader>cm', '<cmd>ClaudeCodeSelectModel<cr>', desc = '[C]laude Select [M]odel' },
     -- Context commands
     { '<leader>cb', '<cmd>ClaudeCodeAdd %<cr>', desc = '[C]laude Add [B]uffer' },
-    { '<leader>cs', '<cmd>ClaudeCodeSend<cr>', mode = 'v', desc = '[C]laude [S]end selection' },
-    -- Diff commands
-    { '<leader>ca', '<cmd>ClaudeCodeDiffAccept<cr>', desc = '[C]laude Diff [A]ccept' },
-    { '<leader>cd', '<cmd>ClaudeCodeDiffDeny<cr>', desc = '[C]laude Diff [D]eny' },
+    { '<leader>cs', ':ClaudeCodeSend<cr>', mode = 'v', desc = '[C]laude [S]end selection' },
   },
+  config = function(_, opts)
+    require('claudecode').setup(opts)
+    -- Exit terminal mode without sending Esc to Claude Code
+    vim.keymap.set('t', '<C-Space>', '<C-\\><C-n><C-h>', { desc = 'Exit terminal mode & focuse left' })
+  end,
   opts = {
     -- Terminal configuration
     terminal = {
       split_side = 'right',
-      split_width_percentage = 0.40,
+      split_width_percentage = 0.30,
       provider = 'snacks',
       auto_close = true,
     },
-    -- Diff integration
-    diff_opts = {
-      auto_close_on_accept = true,
-      vertical_split = true,
-      open_in_current_tab = true,
-    },
+    -- Disable diff integration
+    diff_opts = false,
     -- Selection tracking for visual mode
     track_selection = true,
     -- Focus terminal after sending selection
