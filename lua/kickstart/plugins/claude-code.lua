@@ -1,26 +1,42 @@
 -- Claude Code integration for AI-assisted development
--- https://github.com/greggh/claude-code.nvim
+-- https://github.com/coder/claudecode.nvim
 
 return {
-  'greggh/claude-code.nvim',
+  'coder/claudecode.nvim',
   dependencies = {
-    'nvim-lua/plenary.nvim',
+    'folke/snacks.nvim',
   },
   keys = {
-    { '<leader>cc', '<cmd>ClaudeCode<CR>', desc = '[C]laude [C]ode toggle' },
+    -- Core commands
+    { '<leader>cc', '<cmd>ClaudeCode<cr>', desc = '[C]laude [C]ode toggle' },
+    { '<leader>cf', '<cmd>ClaudeCodeFocus<cr>', desc = '[C]laude [F]ocus' },
+    { '<leader>cr', '<cmd>ClaudeCode --resume<cr>', desc = '[C]laude [R]esume' },
+    { '<leader>cR', '<cmd>ClaudeCode --continue<cr>', desc = '[C]laude Continue' },
+    { '<leader>cm', '<cmd>ClaudeCodeSelectModel<cr>', desc = '[C]laude Select [M]odel' },
+    -- Context commands
+    { '<leader>cb', '<cmd>ClaudeCodeAdd %<cr>', desc = '[C]laude Add [B]uffer' },
+    { '<leader>cs', '<cmd>ClaudeCodeSend<cr>', mode = 'v', desc = '[C]laude [S]end selection' },
+    -- Diff commands
+    { '<leader>ca', '<cmd>ClaudeCodeDiffAccept<cr>', desc = '[C]laude Diff [A]ccept' },
+    { '<leader>cd', '<cmd>ClaudeCodeDiffDeny<cr>', desc = '[C]laude Diff [D]eny' },
   },
-  config = function()
-    require('claude-code').setup {
-      -- Default configuration
-      -- Toggle terminal: <leader>cc (custom) or <C-,> (default)
-      -- Continue mode: <leader>cC
-      -- Verbose mode: <leader>cV
-
-      -- Customize here if needed:
-      -- window = {
-      --   split_ratio = 0.5,
-      --   position = 'right',
-      -- },
-    }
-  end,
+  opts = {
+    -- Terminal configuration
+    terminal = {
+      split_side = 'right',
+      split_width_percentage = 0.40,
+      provider = 'snacks',
+      auto_close = true,
+    },
+    -- Diff integration
+    diff_opts = {
+      auto_close_on_accept = true,
+      vertical_split = true,
+      open_in_current_tab = true,
+    },
+    -- Selection tracking for visual mode
+    track_selection = true,
+    -- Focus terminal after sending selection
+    focus_after_send = true,
+  },
 }
