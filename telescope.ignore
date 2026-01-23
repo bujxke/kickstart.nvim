@@ -1,16 +1,12 @@
-# Ignore all dotfiles/directories by default
+# Ignore dotfiles by default
 .*
 
-# Re-include the dotfiles you want visible
-!.changeset/
+# Re-include specific dotfiles you want visible
 !.changeset/**
-!.github/
 !.github/**
-!.env*
-!.env*/
-!.env*/**
+!.claude/**
+!.env
+!.env.*
 !.nvmrc
 !.npmrc
 !.gitignore
-!.claude/
-!.claude/**

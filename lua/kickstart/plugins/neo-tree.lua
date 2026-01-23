@@ -20,13 +20,15 @@ return {
         hide_gitignored = true,
         always_show = {
           '.changeset',
+          '.claude',
           '.github',
           '.gitignore',
           '.npmrc',
           '.nvmrc',
         },
         always_show_by_pattern = {
-          '^%.env',
+          '%.env',
+          '%.env%.',
         },
         never_show = {
           '.git',
