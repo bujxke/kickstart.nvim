@@ -19,8 +19,8 @@ return {
   },
   config = function(_, opts)
     require('claudecode').setup(opts)
-    -- Exit terminal mode without sending Esc to Claude Code
-    vim.keymap.set('t', '<C-Space>', '<C-\\><C-n><C-h>', { desc = 'Exit terminal mode & focuse left' })
+    -- Exit terminal mode and return to last focused window
+    vim.keymap.set('t', '<C-Space>', '<C-\\><C-n><C-w>p', { desc = 'Exit terminal mode & go to previous window' })
   end,
   opts = {
     -- Terminal configuration
