@@ -16,20 +16,8 @@ return {
   opts = {
     filesystem = {
       filtered_items = {
-        hide_dotfiles = true,
-        hide_gitignored = true,
-        always_show = {
-          '.changeset',
-          '.claude',
-          '.github',
-          '.gitignore',
-          '.npmrc',
-          '.nvmrc',
-        },
-        always_show_by_pattern = {
-          '%.env',
-          '%.env%.',
-        },
+        hide_dotfiles = false,
+        hide_gitignored = false,
         never_show = {
           '.git',
         },
@@ -38,6 +26,9 @@ return {
         mappings = {
           ['<space>'] = 'none',
           ['<leader>e'] = 'close_window',
+          ['<C-Space>'] = function()
+            vim.cmd('wincmd p')
+          end,
         },
       },
     },

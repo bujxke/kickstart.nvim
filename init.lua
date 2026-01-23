@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -182,6 +182,7 @@ vim.keymap.set('n', '<C-[>', '<C-o>', { desc = 'Jump back' })
 vim.keymap.set('n', '<C-]>', '<C-i>', { desc = 'Jump forward' })
 vim.keymap.set('n', 'U', '<C-r>', { desc = 'Redo' })
 vim.keymap.set({ 'n', 'i', 'v' }, '<D-s>', '<cmd>w<CR>', { desc = 'Save buffer' })
+vim.keymap.set('n', '<leader>qq', '<cmd>qa<CR>', { desc = '[Q]uit all' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -428,6 +429,15 @@ require('lazy').setup({
             find_command = {
               'rg',
               '--files',
+              '--hidden',
+              '--glob',
+              '!**/.git/**',
+              '--ignore-file',
+              dotfile_ignore,
+            },
+          },
+          live_grep = {
+            additional_args = {
               '--hidden',
               '--glob',
               '!**/.git/**',

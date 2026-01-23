@@ -3,6 +3,7 @@
 
 # Re-include specific dotfiles you want visible
 !.changeset/**
+!.github/
 !.github/**
 !.claude/**
 !.env
