@@ -168,6 +168,10 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- Automatically reload files changed outside of Neovim
+-- See `:help 'autoread'`
+vim.o.autoread = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -224,6 +228,28 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.hl.on_yank()
+  end,
+})
+
+-- Automatically check for external file changes
+--  Checks when focus is gained, when entering a buffer, and periodically while idle
+--  See `:help autoread` and `:help checktime`
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
+  desc = 'Check for external file changes',
+  group = vim.api.nvim_create_augroup('auto-reload', { clear = true }),
+  callback = function()
+    if vim.fn.mode() ~= 'c' then
+      vim.cmd 'checktime'
+    end
+  end,
+})
+
+-- Notify when file is changed externally
+vim.api.nvim_create_autocmd('FileChangedShellPost', {
+  desc = 'Notify when file is changed externally',
+  group = vim.api.nvim_create_augroup('auto-reload-notify', { clear = true }),
+  callback = function()
+    vim.notify('File changed on disk. Buffer reloaded.', vim.log.levels.INFO)
   end,
 })
 
