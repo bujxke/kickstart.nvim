@@ -1,13 +1,60 @@
-# Ignore dotfiles by default
-.*
+# Version control
+.git/
 
-# Re-include specific dotfiles you want visible
-!.changeset/**
-!.github/
-!.github/**
-!.claude/**
-!.env
-!.env.*
-!.nvmrc
-!.npmrc
-!.gitignore
+# Dependencies
+node_modules/
+vendor/
+.pnpm-store/
+bower_components/
+
+# Build outputs
+dist/
+build/
+out/
+target/
+.next/
+.nuxt/
+.output/
+.vercel/
+.netlify/
+
+# Caches
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+*.pyc
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# IDE/Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Package locks (optional - uncomment if you want to hide these)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Misc
+.terraform/
+*.min.js
+*.min.css
+*.map

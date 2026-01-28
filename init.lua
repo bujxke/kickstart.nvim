@@ -456,8 +456,7 @@ require('lazy').setup({
               'rg',
               '--files',
               '--hidden',
-              '--glob',
-              '!**/.git/**',
+              '--no-ignore-vcs',
               '--ignore-file',
               dotfile_ignore,
             },
@@ -465,8 +464,7 @@ require('lazy').setup({
           live_grep = {
             additional_args = {
               '--hidden',
-              '--glob',
-              '!**/.git/**',
+              '--no-ignore-vcs',
               '--ignore-file',
               dotfile_ignore,
             },
