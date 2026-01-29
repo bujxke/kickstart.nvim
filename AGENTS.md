@@ -1,29 +1,52 @@
-# Repository Guidelines
+# AGENTS.md
 
-This repository is a Neovim configuration based on kickstart.nvim. The primary entry point is `init.lua`, with plugins managed by `lazy.nvim`.
+This file provides guidance to AI coding assistants when working with code in this repository.
 
-## Project Structure & Module Organization
-- `init.lua` is the main configuration: options, keymaps, plugins, LSP, and formatting.
-- `lua/kickstart/` holds optional modules and plugin configs; extra plugins live in `lua/kickstart/plugins/*.lua` and are enabled by `require` in `init.lua`.
-- `lua/custom/plugins/` is a safe area for local plugin specs; enable by uncommenting `{ import = 'custom.plugins' }` in `init.lua`.
-- `colors/` contains custom colorschemes; `doc/` provides help docs/tags; `telescope.ignore` tunes file search; `lazy-lock.json` pins plugin versions.
+## Overview
 
-## Build, Test, and Development Commands
-- `nvim` launches the config; first run installs plugins via lazy.nvim.
-- `:Lazy` opens the plugin manager; `:Lazy update` updates pinned plugins.
-- `:Mason` manages LSP/formatter installs; `:ConformInfo` shows formatter status.
-- `:checkhealth` diagnoses environment issues; `:TSUpdate` refreshes Treesitter parsers.
+Neovim configuration based on kickstart.nvim. The primary entry point is `init.lua`, with plugins managed by `lazy.nvim`.
 
-## Coding Style & Naming Conventions
-- Lua uses 2-space indentation and spaces (see the modeline in `init.lua`).
-- Keep plugin specs in `lua/kickstart/plugins/<name>.lua` or `lua/custom/plugins/<name>.lua` with matching module names.
-- Prefer `opts = {}` for plugin setup and include keymap `desc` fields.
-- Formatting is handled by `conform.nvim`: `stylua` for Lua, `biome` for JS/TS/JSON, and `<leader>f` formats the current buffer.
+## Commands
 
-## Testing Guidelines
-- No automated test suite. Validate changes by starting `nvim`, running `:checkhealth`, and exercising affected features (LSP, formatter, keymaps).
-- When modifying plugins, ensure `lazy-lock.json` updates and `:Lazy` shows a clean status.
+- `nvim` - Launch config; first run installs plugins via lazy.nvim
+- `:Lazy` - Open plugin manager; `:Lazy update` updates pinned plugins
+- `:Mason` - Manage LSP/formatter installs
+- `:ConformInfo` - Show formatter status
+- `:checkhealth` - Diagnose environment issues
+- `:TSUpdate` - Refresh Treesitter parsers
+- `<leader>f` - Format current buffer
 
-## Commit & Pull Request Guidelines
-- Recent history uses short, imperative summaries and occasionally Conventional Commits (`feat:`, `fix:`). Follow that style.
-- PRs should include a concise description, test notes (commands or Neovim checks run), and screenshots for UI changes (colors, statusline, file tree).
+## Architecture
+
+### Entry Point
+`init.lua` contains all core configuration: options, keymaps, plugin specs, LSP setup, and formatting rules.
+
+### Plugin Structure
+- `lua/kickstart/plugins/*.lua` - Optional plugin configs enabled by `require` in init.lua
+- `lua/custom/plugins/` - Local plugin specs; enable by uncommenting `{ import = 'custom.plugins' }` in init.lua
+- `after/lsp/*.lua` - Per-LSP server configuration overrides (lua_ls, ts_ls, yamlls)
+
+### Other Directories
+- `colors/` - Custom colorschemes
+- `doc/` - Help documentation
+- `lazy-lock.json` - Plugin version pinning
+- `telescope.ignore` - File patterns excluded from Telescope searches
+
+## Code Style
+
+- Lua uses 2-space indentation (see modeline in init.lua)
+- Format with `stylua` for Lua, `biome` for JS/TS/JSON
+- Plugin specs use `opts = {}` pattern when possible
+- Keymaps must include `desc` field for which-key integration
+
+## Testing
+
+No automated test suite. Validate changes by:
+1. Starting `nvim`
+2. Running `:checkhealth`
+3. Exercising affected features (LSP, formatter, keymaps)
+4. Verifying `:Lazy` shows clean status
+
+## Commits
+
+Use short, imperative summaries. Conventional Commits prefix (`feat:`, `fix:`) optional but encouraged per recent history.
